@@ -21,22 +21,24 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: vscode-diagnostics-server
 
       - name: Install vsce (Visual Studio Code Extension Manager)
         run: npm install -g vsce
 
       - name: Compile extension
         run: npm run compile
+        working-directory: vscode-diagnostics-server
 
       - name: Package extension
         run: vsce package
+        working-directory: vscode-diagnostics-server
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
         with:
           name: vscode-diagnostics-server-vsix
-          path: '*.vsix'
-          # path: 'vscode-diagnostics-server-*.vsix' # Se houver um nome mais específico
+          path: vscode-diagnostics-server/*.vsix
 
       - name: Release to GitHub (Optional - requires PAT for marketplace or personal repo)
         # Se você quiser liberar diretamente para o GitHub Releases, descomente e configure esta seção.
