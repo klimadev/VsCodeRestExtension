@@ -1,0 +1,47 @@
+{
+  "name": "vscode-diagnostics-server",
+  "displayName": "VS Code Diagnostics Server",
+  "description": "Uma extensão VS Code que expõe os diagnostics da aba 'Problems' via HTTP.",
+  "version": "0.0.1",
+  "publisher": "gca-extension-dev",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-diagnostics-server.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.x",
+    "@types/vscode": "^1.80.0",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.4",
+    "eslint": "^8.47.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "tsc": "^2.0.4"
+  }
+}

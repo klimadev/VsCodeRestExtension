@@ -1,0 +1,46 @@
+name: Build and Release VS Code Extension
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a versão do Node.js que você está usando localmente ou uma compatível
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install vsce (Visual Studio Code Extension Manager)
+        run: npm install -g vsce
+
+      - name: Compile extension
+        run: npm run compile
+
+      - name: Package extension
+        run: vsce package
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vscode-diagnostics-server-vsix
+          path: '*.vsix'
+          # path: 'vscode-diagnostics-server-*.vsix' # Se houver um nome mais específico
+
+      - name: Release to GitHub (Optional - requires PAT for marketplace or personal repo)
+        # Se você quiser liberar diretamente para o GitHub Releases, descomente e configure esta seção.
+        # Requer que você crie um token de acesso pessoal (PAT) com escopo 'repo' e adicione-o como um segredo no seu repositório GitHub.
+        # Exemplo de segredo: VSCE_TOKEN
+        # run: vsce publish -p ${{ secrets.VSCE_TOKEN }}
+        run: echo "Para publicar no Visual Studio Marketplace ou GitHub Releases, descomente a linha acima e configure o token."
